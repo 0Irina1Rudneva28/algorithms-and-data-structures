@@ -53,3 +53,63 @@ N строк содержат описание запросов в формат�
 
 #include <deque>
 #include <iostream>
+
+class GoblinsQueue {
+  std::deque<int> begin_;
+  std::deque<int> middle_;
+ public:
+  void InsertGoblin(int num);
+  void InsertCool(int num);
+  void Clear();
+};
+
+void GoblinsQueue::InsertGob(int num) {
+  middle_.push_back(num);
+  if (middle_.size() > begin_.size()) {
+    begin_.push_back(middle_.front());
+    middle_.pop_front();
+  }
+}
+
+void GoblinsQueue::InsertCool(int num) {
+  if (begin_.size() == middle_.size()) {
+    begin_.push_back(num);
+  } else {
+    middle_.push_front(num);
+  }
+}
+
+int GoblinsQueue::Clear() {
+  int tmp = begin_.front();
+  begin_.pop_front();
+  if (middle_.size() > begin_.size()) {
+    begin_.push_back(middle_.front());
+    middle_.pop_front();
+  }
+  return tmp;
+  }
+
+int main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+  long long cmds;
+  std::cin >> cmds;
+  char ch;
+  int x;
+  GoblinsQueue goblinsQueue;
+  for (long long i = 0; i < cmds; ++i) {
+    std::cin >> ch;
+    if (ch == '+') {
+      std::cin >> x;
+      goblinsQueue.InsertGob(x);
+    } 
+    if (ch == '*') {
+      std::cin >> x;
+      goblinsQueue.InsertCool(x);
+    if {
+      std::cout << goblinsQueue.Clear() << std::endl;
+    }
+  }
+  return 0;
+}
